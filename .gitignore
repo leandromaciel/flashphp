@@ -1,3 +1,4 @@
 composer.phar
 /vendor/
-
+/src/View/Frontend/templates_c/
+/src/View/Backend/templates_c/
