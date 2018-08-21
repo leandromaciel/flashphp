@@ -1,0 +1,38 @@
+{
+    "name": "notify-me/framework",
+    "description": "Notify-me Framework",
+    "keywords": ["notify", "framework"],
+    "type": "framework",
+    "authors": [
+        {
+            "name": "Leandro Maciel",
+            "email": "emaildoleandromaciel@gmail.com",
+            "role": "developer"
+        }
+    ],
+
+    "require": {
+        "php": ">=7.0",
+        "smarty/smarty": "~3.1",
+        "aura/session": "2.1.*",
+        "ircmaxell/random-lib": "1.2.*",
+        "paragonie/random_compat": "2.*",
+        "doctrine/orm": "*",
+        "pear/log": "1.13.*",
+        "wisembly/elephant.io": "^3.3"
+    },
+
+    "autoload": {
+        "psr-4": {
+            "NotifyMe\\Model\\Frontend\\": "src/Model/Frontend/",
+            "NotifyMe\\Model\\Backend\\": "src/Model/Backend/",
+            "NotifyMe\\Controller\\Frontend\\": "src/Controller/Frontend/",
+            "NotifyMe\\Controller\\Backend\\": "src/Controller/Backend/",
+            "NotifyMe\\Singleton\\Frontend\\": "src/Singleton/Frontend/",
+            "NotifyMe\\Singleton\\Backend\\": "src/Model/Backend/",
+            "NotifyMe\\Singleton\\": "src/Singleton/",
+            "NotifyMe\\Helper\\": "src/Helper/",
+            "NotifyMe\\Core\\": "src/Core/"
+        }
+    }
+}
