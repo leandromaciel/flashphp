@@ -7,7 +7,7 @@ use NotifyMe\Model\Frontend\User_Model;
 use NotifyMe\Helper\Utilities;
 
 
-class User extends User_Singleton {
+class User {
 
     private $User;
     private $Model;
@@ -18,39 +18,49 @@ class User extends User_Singleton {
     public function __construct() {
         $this->User = User_Singleton::getInstance();
         $this->Model = new User_Model();
-        $this->Utilities = new Utilities();
-
         $this->Smarty = Smarty_Singleton::getInstance();
-        $this->Smarty->assign('User', $this->User);
+        $this->Utilities = new Utilities();
     }
 
     public function index() {
-        $this->Smarty->assign('texto qualquer', 'texto');
-        $this->Smarty->display('User/index.tpl');
+        $this->Model->getList();
+
+        $this->Utilities->displayRestHeaders();
+        
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            echo json_encode($_SERVER);
+        } else {
+            header("HTTP/1.0 405 Method Not Allowed");
+        }
     }
 
     public function doLogin() {
 
-        $_POST['login'] = 'teste';
-        $_POST['password'] = 'senha';
+        $userList = $this->Model->doLogin();
+
+        //foreach($user)
+
+        //$_POST['login'] = 'teste';
+        //$_POST['password'] = 'senha';
+        
         //if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            
-            // required headers
+
+            /* header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
             header("Access-Control-Allow-Origin: *");
             header("Content-Type: application/json; charset=UTF-8");
+ */
             
-            //$this->Data = $this->Utilities->doSanitize();
-
-            $this->User->setLogin($_POST['login']);
+            /* $this->User->setLogin($_POST['login']);
             $this->User->setPassword($_POST['password']);
             
             $responseData = array(
                 'LoginOK' => $this->User->getLogin(),
                 'passwordOK' => $this->User->getPassword()
             );
-
-            echo json_encode($responseData);
+             */
+            //echo json_encode($_POST);
+        /* } else {
+            header("HTTP/1.0 404 Not Found"); */
         //}
-
     }
 }

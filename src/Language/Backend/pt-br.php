@@ -54,6 +54,8 @@ $language['router']['method']['search'] = 'procurar';
 $language['router']['method']['show'] = 'mostrar';
 $language['router']['method']['show-result-by'] = 'resultado-da-busca-por';
 $language['router']['method']['update'] = 'atualizar';
+$language['router']['method']['export-csv'] = 'exportar-csv';
+
 
 $language['message']['account-list'] = 'lista de cadastros';
 $language['message']['account-type-list'] = 'lista dos tipos de cadastro';

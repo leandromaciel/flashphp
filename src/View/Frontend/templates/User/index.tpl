@@ -7,12 +7,13 @@
     <title>Notify-me</title>
 </head>
 <body>
+
     
-    {$User->getLogin()}
-
-    <br>
-
-    {$Language->getMessage('mandatory-accountTypeId')}
+    {foreach from=$User->list item=$user}
+        Id do usuário: {$user.id}
+        <br>
+        Login do usuário: {$user.login}
+    {/foreach}
 
 </body>
 </html>

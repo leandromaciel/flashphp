@@ -2,6 +2,7 @@
 namespace NotifyMe;
 
 use NotifyMe\Singleton;
+use PDO;
 
 require_once(CONFIG_PATH.'Settings.php'); 
 
@@ -25,9 +26,15 @@ $Security = new Core\Security($settings['Security']);
 $Core->setSecurity($Security);
 $Smarty->assign('Security', $Security);
 
-$DB_Factory = new Core\DB_Factory($settings['DB_Factory']);
-$Core->setDB_Factory($DB_Factory);
-$Smarty->assign('DB_Factory', $DB_Factory);
+try {
+    $DBConnection = new PDO("mysql:host={$settings['DB_Factory']['host']};dbname={$settings['DB_Factory']['dbname']}", "{$settings['DB_Factory']['user']}", "{$settings['DB_Factory']['password']}");
+    $DB_Factory = new Core\DB_Factory($DBConnection, $settings['DB_Factory']['records_limit']);
+    $Core->setDB_Factory($DB_Factory);
+    $Smarty->assign('DB_Factory', $DB_Factory);    
+} catch(PDOException $Error) {
+    $DBConnectionError = $Error->getMessage();
+    die($DBConnectionError);
+}
 
 $Logger = new Core\Logger($settings['Logger']);
 $Core->setLogger($Logger);

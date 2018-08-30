@@ -288,5 +288,20 @@ class Security {
         }
 
         return null;
+	}
+	
+	public function validateRequestMethod(string $requestMethod) {
+        if ($_SERVER['REQUEST_METHOD'] !== $requestMethod) {
+            header("HTTP/1.0 405 Method Not Allowed");
+            return false;
+        } else {
+            return true;
+        }    
+    }
+
+    public function displayRestHeaders() {
+		header("Access-Control-Allow-Origin: *");
+        header("Content-Type: application/json; charset=UTF-8");
+        header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
     }
 }

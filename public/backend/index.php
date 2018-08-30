@@ -119,7 +119,7 @@ define('PROXY_PATH', '../../src/Factory/Proxies/');
  * Smarty Plugin Path
  *---------------------------------------------------------------
  *
- * Here you set where the Smarty_plugin will be placed with the trailing slash "/"
+ * Here you set where the Smarty_plugin helpers will be placed with the trailing slash "/"
  *
  */
 define('SMARTY_PLUGIN_PATH', HELPER_PATH.'Smarty/');
@@ -144,7 +144,7 @@ define('CONFIG_PATH', '../../src/Config/'.APPLICATION.'/');
  * Here you set where the Models for your APPLICATION will be placed with the trailing slash "/"
  *
  */
-define('MODEL_PATH', '../src/Model/'.APPLICATION.'/');
+define('MODEL_PATH', '../../src/Model/'.APPLICATION.'/');
 
 
 /*

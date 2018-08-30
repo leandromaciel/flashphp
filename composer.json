@@ -17,7 +17,6 @@
         "aura/session": "2.1.*",
         "ircmaxell/random-lib": "1.2.*",
         "paragonie/random_compat": "2.*",
-        "doctrine/orm": "*",
         "pear/log": "1.13.*",
         "wisembly/elephant.io": "^3.3"
     },

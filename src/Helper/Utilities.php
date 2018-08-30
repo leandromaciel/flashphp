@@ -22,6 +22,11 @@ class Utilities {
         return $sanitizedData;
     }
 
+    public function sanitizeData($data) {
+        $sanitizedData = htmlspecialchars(strip_tags($data));
+        return $sanitizedData;
+    }
+
     public function clearSpaces(array $data):array {
         return array_map('trim', $data);
     }

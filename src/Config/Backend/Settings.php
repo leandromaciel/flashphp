@@ -1,6 +1,6 @@
 <?php
 $settings['DB_Factory']['driver'] = 'pdo_mysql';
-$settings['DB_Factory']['host'] = 'localhost';
+$settings['DB_Factory']['host'] = '127.0.0.1';
 $settings['DB_Factory']['dbname'] = 'flashphp';
 $settings['DB_Factory']['user'] = 'root';
 $settings['DB_Factory']['password'] = 'root';
@@ -9,8 +9,8 @@ $settings['DB_Factory']['records_limit'] = 1000;
 
 
 $settings['Language']['dir'] = LANGUAGE_PATH;
-$settings['Language']['files'][] = 'pt_br';
-$settings['Language']['files'][] = 'en_us';
+$settings['Language']['files'][] = 'pt-br';
+$settings['Language']['files'][] = 'en-us';
 
 
 $settings['Template']['dir'] = VIEW_PATH.'templates/';
@@ -18,17 +18,17 @@ $settings['Template']['compile_dir'] = VIEW_PATH.'/templates_c/';
 
 
 $settings['Router']['dir'] = CONFIG_PATH;
-$settings['Router']['base_url'] = 'http://localhost/flashphp/public_html/admin';
+$settings['Router']['base_url'] = 'http://localhost/flashphp/public/backend/';
 $settings['Router']['error_403'] = 'Main/error403';
 $settings['Router']['error_404'] = 'Main/error404';
 
 
 $settings['Security']['redirect_path'] = $settings['Router']['base_url'];
-$settings['Security']['session_name'] = 'FlashPHP_Session_Backend';
+$settings['Security']['session_name'] = 'FlashPHP_Session_Frontend';
 $settings['Security']['session_entity'] = 'user';
 $settings['Security']['session_entity_field'] = 'session_id';
 $settings['Security']['csrf_token'] = true;
-$settings['Security']['csrf_token_name'] = 'notifyme_csrf_token_backend';
+$settings['Security']['csrf_token_name'] = 'flashphp_csrf_token_frontend';
 
 
 $settings['Logger']['output'] = 'file';

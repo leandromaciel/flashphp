@@ -1,20 +1,46 @@
 <?php
 namespace NotifyMe\Singleton\Frontend;
 
+use NotifyMe\Singleton\Core_Singleton;
 use NotifyMe\Singleton\Smarty_Singleton;
+use NotifyMe\Core\Data_Object;
 
-class User_Singleton {
 
-    private $_id = 0;
-    private $_login = '';
-    private $_password = '';
+class User_Singleton extends Data_Object {
+
+    // name: Table Name, key: Primary Key (can be an array), auto: AUTO_INCREMENT field
+    protected static $_table = array(
+        'name' => 'users', 
+        'key' => 'id', 
+        'auto' => 'id');
+    
+    // relationships between PHP properties and MySQL field names
+    protected static $_propertyList = array(
+        'id' => 'id', 
+        'login' => 'login', 
+        'password' => 'password',
+        'createdAt' => 'created_at',
+        'updatedAt' => 'updated_at', 
+        'securityHash' => 'security_hash');
+
+    private $DB_Factory;
+
+    public $list = array();
+
+    /**
+     * Construtor do tipo protegido previne que uma nova instância da
+     * Classe seja criada através do operador `new` de fora dessa classe.
+     */
+    protected function __construct() {
+        $this->DB_Factory = Core_Singleton::getInstance()->getDB_Factory();
+    }
 
     /**
      * Retorna uma instância única da classe.
      *
-     * @staticvar User_Singleton $instance A instância única dessa classe.
+     * @staticvar Smarty_Singleton $instance A instância única dessa classe.
      *
-     * @return User_Singleton A Instância única.
+     * @return Smarty_Singleton A Instância única.
      */
     public static function getInstance() {
         static $instance = null;
@@ -23,15 +49,6 @@ class User_Singleton {
         }
 
         return $instance;
-    }
-
-    /**
-     * Construtor do tipo protegido previne que uma nova instância da
-     * Classe seja criada através do operador `new` de fora dessa classe.
-     */
-    protected function __construct() {
-        $Smarty = Smarty_Singleton::getInstance();
-        $Smarty->assign('User', $this);
     }
 
     /**
@@ -52,27 +69,27 @@ class User_Singleton {
     private function __wakeup() {
     }
 
-    public function setId(int $id) {
-        $this->_id = $id;
+    public function findAll() {
+        $statement = $this->DB_Factory->DBConnection->query('select * from '.$this::$_table['name']);
+
+        $this->list = array();
+        
+        while ( $user = $statement->fetchObject(__CLASS__) ) {
+            $this->list[] = $user->data;
+        }
+
+        return $this->list;
     }
 
-    public function getId():int {
-        return $this->_id;
-    }
+    public function insert() {
+        $this->DB_Factory->setFields($this->data);
+        $queryData = $this->DB_Factory->prepareInsert();
 
-    public function setLogin(string $login) {
-        $this->_login = $login;
-    }
+        $finalQuery = 'INSERT INTO '.$this::$_table['name'].$queryData['fields']. ' VALUES'.$queryData['values'];
 
-    public function getLogin():string {
-        return $this->_login;
-    }
+        $statement = $this->DB_Factory->DBConnection->query($finalQuery);
+        $lastId = $this->DB_Factory->DBConnection->lastInsertId();
 
-    public function setPassword(string $password) {
-        $this->_password = $password;
-    }
-
-    public function getPassword():string {
-        return $this->_password;
+        return $lastId;
     }
 }
