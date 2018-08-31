@@ -218,7 +218,25 @@ class User_Singleton extends Data_Object {
         return $lastId;
     }
 
-    public function update() {
+    public function update($id, $security_hash) {
+        $newData = [
+            'login' => $this->data['login'],
+            'password' => $this->data['password'],
+            'updated_at' => date('Y-m-d H:i:s'),
+            'id' => $id,
+            'security_hash' => $security_hash
+        ];
 
+        $sql = "UPDATE {$this::$_table['name']} SET login=:login, password=:password, updated_at=:updated_at WHERE id=:id AND security_hash=:security_hash";
+        $statement= $this->DB_Factory->DBConnection->prepare($sql);
+        $statement->execute($newData);
+        
+        $affectedRows = $statement->rowCount();
+        
+        if ($affectedRows === 1) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

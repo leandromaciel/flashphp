@@ -39,6 +39,6 @@ class Data_Object {
     private function clear() {}
     public function delete() {}
     public function insert() {}
-    public function update() {}
+    public function update($id, $security_hash) {}
     public function useFunction($property, $function) {}
 }

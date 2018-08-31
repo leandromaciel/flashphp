@@ -74,4 +74,14 @@ class User {
             echo json_encode($userData);
         }
     }
+
+    public function edit() {
+        if ($this->Security->validateRequestMethod('POST')) {
+            $userData = json_decode(file_get_contents("php://input"));
+            $serverResponse = $this->Model->setUserById($userData);
+
+            $this->Security->displayRestHeaders();
+            echo json_encode($serverResponse);
+        }
+    }
 }

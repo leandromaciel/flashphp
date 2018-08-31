@@ -53,7 +53,20 @@ class User_Model {
 
             $this->User->insert();
 
-            echo "Inserindo usuario {$i}";
+            echo "Inserindo usuario {$i}<br />";
+            flush();
+        }
+    }
+
+    public function setUserById($userData) {
+        $this->User->login = $userData->login;
+        $this->User->password = md5($userData->password);
+        $isUpdated = $this->User->update($userData->id, $userData->security_hash);
+
+        if ($isUpdated) {
+            return array('success_message' => true);
+        } else {
+            return array('error_message' => true);
         }
     }
 }

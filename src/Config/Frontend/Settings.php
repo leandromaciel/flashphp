@@ -3,7 +3,7 @@ $settings['DB_Factory']['driver'] = 'pdo_mysql';
 $settings['DB_Factory']['host'] = '127.0.0.1';
 $settings['DB_Factory']['dbname'] = 'flashphp';
 $settings['DB_Factory']['user'] = 'root';
-$settings['DB_Factory']['password'] = 'root';
+$settings['DB_Factory']['password'] = '';
 $settings['DB_Factory']['charset'] = 'utf8';
 $settings['DB_Factory']['records_limit'] = 1000;
 
