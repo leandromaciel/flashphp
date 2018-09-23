@@ -106,6 +106,9 @@ $routes[$controller['User'].'/'.$method['show-result-by'].'/(:param)/(:param)'] 
 $routes[$controller['User'].'/'.$method['show'].'/(:param)'] = 'User/show/(:param)';
 $routes[$controller['User'].'/'.$method['show'].'/(:param)/(:param)'] = 'User/show/(:param)/(:param)';
 $routes[$controller['User'].'/'.$method['export-csv']] = 'User/exportCSV';
+$routes[$controller['User'].'/'.$method['validate-credentials']] = 'User/validateCredentials';
+
+
 /**
  * UserGroup Routes
  */

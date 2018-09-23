@@ -1,8 +1,8 @@
 <?php
-namespace NotifyMe\Core;
+namespace FlashPHP\Core;
 
-use NotifyMe\Singleton\Smarty_Singleton;
-use NotifyMe\Singleton\Core_Singleton;
+use FlashPHP\Singleton\Smarty_Singleton;
+use FlashPHP\Singleton\Core_Singleton;
 
 class Router {
 
@@ -113,7 +113,7 @@ class Router {
 
 		$segments = explode('/', $originalRoute);
 
-		$controllerNamespace = '\\NotifyMe\\Controller\\'.APPLICATION.'\\'.$segments[0];
+		$controllerNamespace = '\\FlashPHP\\Controller\\'.APPLICATION.'\\'.$segments[0];
 		
 		$this->setController($controllerNamespace);
 		$this->setMethod($segments[1]);

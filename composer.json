@@ -1,7 +1,7 @@
 {
-    "name": "notify-me/framework",
-    "description": "Notify-me Framework",
-    "keywords": ["notify", "framework"],
+    "name": "flashPHP/framework",
+    "description": "FlashPHP Framework",
+    "keywords": ["flashphp", "framework"],
     "type": "framework",
     "authors": [
         {
@@ -23,15 +23,15 @@
 
     "autoload": {
         "psr-4": {
-            "NotifyMe\\Model\\Frontend\\": "src/Model/Frontend/",
-            "NotifyMe\\Model\\Backend\\": "src/Model/Backend/",
-            "NotifyMe\\Controller\\Frontend\\": "src/Controller/Frontend/",
-            "NotifyMe\\Controller\\Backend\\": "src/Controller/Backend/",
-            "NotifyMe\\Singleton\\Frontend\\": "src/Singleton/Frontend/",
-            "NotifyMe\\Singleton\\Backend\\": "src/Model/Backend/",
-            "NotifyMe\\Singleton\\": "src/Singleton/",
-            "NotifyMe\\Helper\\": "src/Helper/",
-            "NotifyMe\\Core\\": "src/Core/"
+            "FlashPHP\\Model\\Frontend\\": "src/Model/Frontend/",
+            "FlashPHP\\Model\\Backend\\": "src/Model/Backend/",
+            "FlashPHP\\Controller\\Frontend\\": "src/Controller/Frontend/",
+            "FlashPHP\\Controller\\Backend\\": "src/Controller/Backend/",
+            "FlashPHP\\Singleton\\Frontend\\": "src/Singleton/Frontend/",
+            "FlashPHP\\Singleton\\Backend\\": "src/Singleton/Backend/",
+            "FlashPHP\\Singleton\\": "src/Singleton/",
+            "FlashPHP\\Helper\\": "src/Helper/",
+            "FlashPHP\\Core\\": "src/Core/"
         }
     }
 }

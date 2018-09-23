@@ -1,5 +1,5 @@
 <?php
-namespace NotifyMe\Core;
+namespace FlashPHP\Core;
 use PDO;
 
 class DB_Factory {
@@ -106,6 +106,20 @@ class DB_Factory {
         return $finalValues;
     }
 
+    private function prepareFieldsForUpdate() {
+        $preparedFields = '';
+        if (is_array($this->getFields())) {
+            foreach($this->fields as $field => $value) {
+                $preparedFields.= "{$field}=:{$field},";
+            }
+        }
+
+        $size = strlen($preparedFields);
+        $finalValues = substr($preparedFields, 0, $size-1);
+        
+        return $finalValues;
+    }
+
     private function prepareSelect() {
         $fields = $this->prepareFields();
         $table = $this->getTable();
@@ -132,6 +146,11 @@ class DB_Factory {
         ];
 
         return $insertData;
+    }
+
+    public function prepareUpdate() {
+        $updateFields = $this->prepareFieldsForUpdate();
+        return $updateFields;
     }
 
     private function executeQuery() {

@@ -1,11 +1,11 @@
 <?php
-namespace NotifyMe\Controller\Backend;
+namespace FlashPHP\Controller\Backend;
 
-use NotifyMe\Singleton\Backend\User_Singleton;
-use NotifyMe\Singleton\Smarty_Singleton;
-use NotifyMe\Singleton\Core_Singleton;
-use NotifyMe\Helper\Utilities;
-use NotifyMe\Core\Router;
+use FlashPHP\Singleton\Backend\User_Singleton;
+use FlashPHP\Singleton\Smarty_Singleton;
+use FlashPHP\Singleton\Core_Singleton;
+use FlashPHP\Helper\Utilities;
+use FlashPHP\Core\Router;
 
 class Main {
 
@@ -35,5 +35,7 @@ class Main {
 	}
 
     public function error403() {
+        $this->Security->displayRestHeaders();
+        echo($this->Language->getMessage('access-denied'));
     }
 }

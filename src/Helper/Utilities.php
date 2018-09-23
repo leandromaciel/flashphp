@@ -1,6 +1,6 @@
 <?php
 
-namespace NotifyMe\Helper;
+namespace FlashPHP\Helper;
 
 class Utilities {
 

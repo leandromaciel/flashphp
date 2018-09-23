@@ -1,9 +1,9 @@
 <?php
-namespace NotifyMe\Singleton\Backend;
+namespace FlashPHP\Singleton\Backend;
 
-use NotifyMe\Singleton\Core_Singleton;
-use NotifyMe\Singleton\Smarty_Singleton;
-use NotifyMe\Core\Data_Object;
+use FlashPHP\Singleton\Core_Singleton;
+use FlashPHP\Singleton\Smarty_Singleton;
+use FlashPHP\Core\Data_Object;
 
 
 class User_Singleton extends Data_Object {
@@ -19,9 +19,11 @@ class User_Singleton extends Data_Object {
         'id' => 'id', 
         'login' => 'login', 
         'password' => 'password',
+        'securityHash' => 'security_hash',
+        'loggedIn' => 'logged_in',
         'createdAt' => 'created_at',
-        'updatedAt' => 'updated_at', 
-        'securityHash' => 'security_hash');
+        'updatedAt' => 'updated_at' 
+        );
 
     private $DB_Factory;
 
@@ -42,9 +44,9 @@ class User_Singleton extends Data_Object {
     /**
      * Retorna uma instância única da classe.
      *
-     * @staticvar Smarty_Singleton $instance A instância única dessa classe.
+     * @staticvar User_Singleton $instance A instância única dessa classe.
      *
-     * @return Smarty_Singleton A Instância única.
+     * @return User_Singleton A Instância única.
      */
     public static function getInstance() {
         static $instance = null;
@@ -74,7 +76,8 @@ class User_Singleton extends Data_Object {
     }
 
     public function doFindByIds(array $listIds = null) {
-        
+        $ids = [];
+
         if (is_array($listIds)) {
             $ids = $listIds;
         } else {
@@ -83,18 +86,22 @@ class User_Singleton extends Data_Object {
             }
         }
 
-        $inArray  = implode(',', $ids);
-        $sql = "SELECT * FROM {$this::$_table['name']} WHERE {$this::$_table['name']}.id IN ({$inArray})";
-        $statement = $this->DB_Factory->DBConnection->prepare($sql);
-        $statement->execute();
-        
-        $this->list = array();
-        
-        while ( $user = $statement->fetchObject(__CLASS__) ) {
-            $this->list[] = $user->data;
-        }
+        if ( count($ids) >= 1 ) {
+            $inArray  = implode(',', $ids);
+            $sql = "SELECT * FROM {$this::$_table['name']} WHERE {$this::$_table['name']}.id IN ({$inArray})";
+            $statement = $this->DB_Factory->DBConnection->prepare($sql);
+            $statement->execute();
+            
+            $this->list = array();
+            
+            while ( $user = $statement->fetchObject(__CLASS__) ) {
+                $this->list[] = $user->data;
+            }
 
-        return $this->list;
+            return $this->list;
+        }
+        
+        return false;
     }
 
     private function findIdAll() {
@@ -110,7 +117,7 @@ class User_Singleton extends Data_Object {
     }
 
     private function findIdByLogin(string $login) {
-        $query = "SELECT {$this::$_table['name']}.id FROM {$this::$_table['name']} WHERE {$this::$_table['name']}.login LIKE '%:login%'";
+        $query = "SELECT {$this::$_table['name']}.id FROM {$this::$_table['name']} WHERE {$this::$_table['name']}.login = :login";
 
         $statement = $this->DB_Factory->DBConnection->prepare($query);
         $statement->bindParam(':login', $login);
@@ -218,21 +225,24 @@ class User_Singleton extends Data_Object {
         return $lastId;
     }
 
-    public function update($id, $security_hash) {
-        $newData = [
-            'login' => $this->data['login'],
-            'password' => $this->data['password'],
-            'updated_at' => date('Y-m-d H:i:s'),
-            'id' => $id,
-            'security_hash' => $security_hash
-        ];
+    public function update($id) {
 
-        $sql = "UPDATE {$this::$_table['name']} SET login=:login, password=:password, updated_at=:updated_at WHERE id=:id AND security_hash=:security_hash";
+        $this->DB_Factory->setFields($this->data);
+        $updateFields = $this->DB_Factory->prepareUpdate();
+
+        $newData = ['id' => $id];
+
+        foreach ($this->data as $field => $value) {
+            $newData[$field] = $value;
+        }
+
+        $sql = "UPDATE {$this::$_table['name']} SET {$updateFields} WHERE id=:id";
+        
         $statement= $this->DB_Factory->DBConnection->prepare($sql);
         $statement->execute($newData);
         
         $affectedRows = $statement->rowCount();
-        
+
         if ($affectedRows === 1) {
             return true;
         } else {

@@ -55,8 +55,10 @@ $language['router']['method']['show'] = 'mostrar';
 $language['router']['method']['show-result-by'] = 'resultado-da-busca-por';
 $language['router']['method']['update'] = 'atualizar';
 $language['router']['method']['export-csv'] = 'exportar-csv';
+$language['router']['method']['validate-credentials'] = 'validar-credenciais';
 
 
+$language['message']['access-denied'] = 'Acesso negado';
 $language['message']['account-list'] = 'lista de cadastros';
 $language['message']['account-type-list'] = 'lista dos tipos de cadastro';
 $language['message']['company-list'] = 'lista de empresas';
@@ -124,6 +126,7 @@ $language['message']['session-ended'] = 'sessão finalizada';
 $language['message']['session-ended-do-login'] = 'sessão finalizada, faça o login novamente';
 $language['message']['showing-results-from'] = 'mostrando resultados de';
 
+$language['message']['user-already-logged-in'] = 'usuário já está logado no sistema';
 
 $language['word']['account'] = 'cadastro';
 $language['word']['accounting'] = 'contábil';

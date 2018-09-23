@@ -18,7 +18,7 @@ $settings['Template']['compile_dir'] = VIEW_PATH.'/templates_c/';
 
 
 $settings['Router']['dir'] = CONFIG_PATH;
-$settings['Router']['base_url'] = 'http://localhost/flashphp/public/backend/';
+$settings['Router']['base_url'] = 'http://192.168.1.5/flashphp/public/backend/';
 $settings['Router']['error_403'] = 'Main/error403';
 $settings['Router']['error_404'] = 'Main/error404';
 

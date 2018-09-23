@@ -1,5 +1,5 @@
 <?php
-namespace NotifyMe\Core;
+namespace FlashPHP\Core;
 
 class Logger {
 

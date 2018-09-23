@@ -1,5 +1,5 @@
 <?php 
-namespace NotifyMe\Core;
+namespace FlashPHP\Core;
 
 class Data_Object {
     private $changedFields = array(); // list of updated fields
@@ -39,6 +39,6 @@ class Data_Object {
     private function clear() {}
     public function delete() {}
     public function insert() {}
-    public function update($id, $security_hash) {}
+    public function update($id) {}
     public function useFunction($property, $function) {}
 }

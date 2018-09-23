@@ -1,9 +1,10 @@
 <?php
-namespace NotifyMe\Core;
+namespace FlashPHP\Core;
 
 use Aura\Session\Session;
 use Aura\Session\SessionFactory;
-use NotifyMe\Singleton\Core_Singleton;
+use FlashPHP\Singleton\Core_Singleton;
+use FlashPHP\Model\Backend\User_Model;
 
 class Security {
 
@@ -303,5 +304,18 @@ class Security {
 		header("Access-Control-Allow-Origin: *");
         header("Content-Type: application/json; charset=UTF-8");
         header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
-    }
+	}
+	
+	public function validateCredentials() {
+		$userData = json_decode(file_get_contents("php://input"));
+		$UserModel = new User_Model();
+
+		$isAuthorized = false;
+
+		if ( isset($userData->CSRF_TOKEN_VALUE) ) {
+			$isAuthorized = $UserModel->validateSecurityHash($userData);
+		}
+		
+		return $isAuthorized;
+	}
 }

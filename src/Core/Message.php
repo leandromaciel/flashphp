@@ -1,7 +1,7 @@
 <?php
-namespace NotifyMe\Core;
+namespace FlashPHP\Core;
 
-use NotifyMe\Singleton\Core_Singleton;
+use FlashPHP\Singleton\Core_Singleton;
 
 class Message {
 

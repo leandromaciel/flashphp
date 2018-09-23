@@ -1,8 +1,8 @@
 <?php
-namespace NotifyMe\Model\Frontend;
+namespace FlashPHP\Model\Frontend;
 
-use NotifyMe\Singleton\Frontend\User_Singleton;
-use NotifyMe\Singleton\Core_Singleton;
+use FlashPHP\Singleton\Frontend\User_Singleton;
+use FlashPHP\Singleton\Core_Singleton;
 
 class User_Model {
 

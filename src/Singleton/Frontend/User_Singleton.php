@@ -1,9 +1,9 @@
 <?php
-namespace NotifyMe\Singleton\Frontend;
+namespace FlashPHP\Singleton\Frontend;
 
-use NotifyMe\Singleton\Core_Singleton;
-use NotifyMe\Singleton\Smarty_Singleton;
-use NotifyMe\Core\Data_Object;
+use FlashPHP\Singleton\Core_Singleton;
+use FlashPHP\Singleton\Smarty_Singleton;
+use FlashPHP\Core\Data_Object;
 
 
 class User_Singleton extends Data_Object {

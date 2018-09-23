@@ -1,5 +1,5 @@
 <?php
-namespace NotifyMe\Singleton;
+namespace FlashPHP\Singleton;
 
 class Core_Singleton {
 
