@@ -1,7 +1,7 @@
 <?php
-namespace NotifyMe;
+namespace FlashPHP;
 
-use NotifyMe\Singleton;
+use FlashPHP\Singleton;
 use PDO;
 
 require_once(CONFIG_PATH.'Settings.php'); 

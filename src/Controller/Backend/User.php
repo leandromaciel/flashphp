@@ -1,10 +1,10 @@
 <?php
-namespace NotifyMe\Controller\Backend;
+namespace FlashPHP\Controller\Backend;
 
-use NotifyMe\Singleton\Backend\User_Singleton;
-use NotifyMe\Model\Backend\User_Model;
-use NotifyMe\Helper\Utilities;
-use NotifyMe\Singleton\Core_Singleton;
+use FlashPHP\Singleton\Backend\User_Singleton;
+use FlashPHP\Model\Backend\User_Model;
+use FlashPHP\Helper\Utilities;
+use FlashPHP\Singleton\Core_Singleton;
 
 
 class User {
@@ -24,8 +24,16 @@ class User {
     }
 
     public function index() {
-        if ($this->Security->validateRequestMethod('GET')) {
-            $userData = $this->Model->getList();
+        if ($this->Security->validateRequestMethod('POST')) {
+
+            $isAuthorized = $this->Security->validateCredentials();
+
+            if ( $isAuthorized ) {
+                $userData = $this->Model->getList();
+            } else {
+                $userData = ['AUTHORIZED' => false];
+            }
+            
             $this->Security->displayRestHeaders();
             echo json_encode($userData);
         }
@@ -46,13 +54,20 @@ class User {
             $userData = json_decode(file_get_contents("php://input"));
             
             if ($this->Model->doLogin($userData)) {
-                $responseData = [
-                    'AUTHORIZED' => true, 
-                    'CSRF_TOKEN_NAME' => $this->Security->getCsrfTokenName(),
-                    'CSRF_TOKEN_VALUE' => $this->Security->getCsrfTokenValue(),
-                    'CREDENTIALS' => 'admin',
-                    'USER_LOGIN' => $userData->userLogin
-                ];        
+                if ($this->Model->registerLogin($userData->userLogin)) {
+                    $responseData = [
+                        'AUTHORIZED' => true, 
+                        'CSRF_TOKEN_NAME' => $this->Security->getCsrfTokenName(),
+                        'CSRF_TOKEN_VALUE' => $this->Security->getCsrfTokenValue(),
+                        'CREDENTIALS' => 'admin',
+                        'USER_LOGIN' => $userData->userLogin
+                    ];
+                } else {
+                    $responseData = [
+                        'AUTHORIZED' => 'logged',
+                        'error_message' => $this->Language->getMessage('user-already-logged-in')
+                    ];    
+                }
             } else {
                 $responseData = [
                     'AUTHORIZED' => false,

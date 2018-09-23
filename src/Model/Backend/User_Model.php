@@ -1,9 +1,9 @@
 <?php
-namespace NotifyMe\Model\Backend;
+namespace FlashPHP\Model\Backend;
 
-use NotifyMe\Singleton\Backend\User_Singleton;
-use NotifyMe\Singleton\Core_Singleton;
-use NotifyMe\Helper\Utilities;
+use FlashPHP\Singleton\Backend\User_Singleton;
+use FlashPHP\Singleton\Core_Singleton;
+use FlashPHP\Helper\Utilities;
 
 class User_Model {
 
@@ -26,6 +26,29 @@ class User_Model {
         $authorization = $this->User->doLogin($cleanLogin, $cleanPassword);
 
         return $authorization;
+    }
+
+    public function registerLogin(string $login) {
+        $userData = $this->User->findByLogin($login);
+        
+        $this->User->securityHash = $this->Security->getCsrfTokenValue();
+        $this->User->loggedIn = 1;
+        
+        $registerLogin = $this->User->update($userData[0]['id']);
+        
+        return $registerLogin;
+    }
+
+    public function validateSecurityHash($userData) {
+        $validationData = $this->User->findByLogin($userData->USER_LOGIN);
+
+        if ( is_array($validationData) ) {
+            if ( $validationData[0]['security_hash'] === $userData->CSRF_TOKEN_VALUE ) {
+                return true;
+            } 
+        }
+
+        return false;
     }
 
     public function getList() {
