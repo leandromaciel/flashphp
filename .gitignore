@@ -3,8 +3,8 @@ composer.phar
 /vendor/
 /src/View/Frontend/templates_c/
 /src/View/Backend/templates_c/
-/src/Config/Frontend/Settings.php
-/src/Config/Backend/Settings.php
+src/Config/Frontend/Settings.php
+src/Config/Backend/Settings.php
 
 .DS_STORE
 node_modules
